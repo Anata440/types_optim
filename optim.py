@@ -3,8 +3,16 @@ import xml.etree.ElementTree as ET
 def process_xml(input_file, output_file):
     tree = ET.parse(input_file)
     root = tree.getroot()
+    
+    seen_types = set()
 
     for type_element in list(root):
+        type_name = type_element.attrib.get('name')
+        if type_name in seen_types:
+            root.remove(type_element)
+            continue
+        seen_types.add(type_name)
+
         nominal = type_element.find('nominal')
         if nominal is not None and nominal.text == '0':
             for child in list(type_element):
