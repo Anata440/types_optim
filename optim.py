@@ -23,7 +23,7 @@ def process_xml(input_file, output_file):
         else:
             root.remove(type_element)
 
-    # Создаем новый файл с необходимыми форматами
+
     with open(output_file, 'w', encoding='utf-8') as file:
         file.write('<?xml version="1.0" encoding="UTF-8"?>\n')
         file.write('<types>\n')
@@ -31,7 +31,7 @@ def process_xml(input_file, output_file):
             file.write('  <type name="{}">\n'.format(type_element.attrib['name']))
             for child in type_element:
                 if child.tag == 'flags':
-                    # Пишем атрибуты flags с сохранением значений 0 или 1
+
                     file.write('    <flags count_in_cargo="{}" count_in_hoarder="{}" count_in_map="{}" count_in_player="{}" crafted="{}" deloot="{}" />\n'.format(
                         child.attrib.get('count_in_cargo', '0'),
                         child.attrib.get('count_in_hoarder', '0'),
@@ -51,5 +51,5 @@ def process_xml(input_file, output_file):
             file.write('  </type>\n')
         file.write('</types>\n')
 
-# Пример использования
+
 process_xml('types.xml', 'processed_types.xml')
